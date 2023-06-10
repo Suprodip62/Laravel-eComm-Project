@@ -1,0 +1,40 @@
+problem: xampp install hobar age jehetu composer installed chilo tai "composer global require laravel/installer" deyate Token (hidden): chay
+solution: composer uninstall kore abar install kora
+
+
+==>composer global require laravel/installer
+==>laravel
+   laravel installer 4.5.0
+==>laravel new eComm
+
+==> php --version
+    php 8.2.4 (cli)
+
+==> php artisan --version (don't work --> closing and reopening cmd and then run the command again works)
+Laravel Framework 10.13.5
+
+==> composer --version
+    Composer version 2.5.8
+
+==> php artisan serve
+    Server running on [http://127.0.0.1:8000]
+==> ctrl + c --> stop server
+
+create login.blade.php file in resources/views
+replace welcome in routes/web.php
+create master.blade.php in resources/views --> wrapper for css and javascript
+login.blade.php extend korbe master.blade.php ke
+master.blade.php te bootstrap starter template copy korbo (prthome thakbe bootstrap.min.css tarpore jquery tarpore bootstrap.min.js)
+
+starter template e js cdn er age jquery cdn thakte hobe ta na hole console e error dibe
+
+jquery kaj korche ki na dekhar jonne all set print kore emon function er script
+
+
+Error: MySQL shutdown unexpectedly.
+==> another mysql service is runnin on backend
+win + R ==> type services.msc ==> search Mysql ==> go to properties ==> stop service and cnage automatic to manual ==> this will stop another mysql running on your machine
+https://youtu.be/tGMmxGIHHQc
+
+
+create header.blade.php and footer.blade.php in resources/views 
