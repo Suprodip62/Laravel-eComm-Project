@@ -30,11 +30,70 @@ starter template e js cdn er age jquery cdn thakte hobe ta na hole console e err
 
 jquery kaj korche ki na dekhar jonne all set print kore emon function er script
 
-
+3. Login Header Footer
 Error: MySQL shutdown unexpectedly.
 ==> another mysql service is runnin on backend
 win + R ==> type services.msc ==> search Mysql ==> go to properties ==> stop service and cnage automatic to manual ==> this will stop another mysql running on your machine
 https://youtu.be/tGMmxGIHHQc
 
 
-create header.blade.php and footer.blade.php in resources/views 
+create header.blade.php and footer.blade.php in resources/views
+
+
+git init
+git add .
+git status
+git commit -m "header footer login"
+git remote add origin git@github.com:Suprodip62/Laravel-eComm-Project.git
+git push -u origin master
+
+
+4. Database Configuration, Migration, Seeding
+create database --> laravel_eComm
+database/migrations e giye sobgulo migration delete korte hobe. notun kore migration banabo.
+==> php artisan make:migration create_users_table
+database/migrations er vitore 2023_06_10_142453_create_users_table.php create hobe.
+er vitore up function e name, email, password field add korbo.
+--> .env er vitore DB_DATABASE er vitore database er name thik ache ki na dekhte hobe(ecomm change kore laravel_eComm dite hobe)
+==> php artisan migrate
+    notun table create hobe(users, migrate)
+==> php artisan make:seeder UserSeeder
+    database/migrations/seeders er vitore UserSeeder.php name file create hobe
+    er vitore db ar hash include korte hobe.
+    use Illuminate\Support\Facades\DB;
+    use Illuminate\Support\Facades\Hash;
+
+    er run function er vitore name, email, password set korte hobe then
+==> php artisan db:seed --class UserSeeder
+    users table e data chole jabe.
+
+
+5. Login with session
+==> php artisan make:controller UserController
+    app/Http/Controllers er vitore UserController.php create hobe
+    er vitore login function create korbo.
+    web.php te ei file include korbo and login er jonne notun route create korbo
+    login.blade.php te action=login ar method=post set korle /login page e email pass dile eta same page e post request diye json format e data show korbe
+    erpore UserController er vitore check korte hobe ei email password thik ki na
+    App\Models\User include korte hobe then 
+    return $req->input() er jaygay 
+    return User::where(['email'=>$req->email])->first() eta bosate hobe.
+    jodi email pass db er sathe match kore tahole data dekhabe ar jodi na kore tahole blank dekhabe
+    ekhane only email dekhabe pass dekhabe na. App\Models\User.php te giye $hidden theke password ke remove korte hobe
+    tahole hashed password o dekhabe
+    return na kore ei result ke ekta variable e niye check korte hobe password db er sathe match kore ki na. korle home page e redirect korbe ar na korle not matched message dekhabe.
+
+
+==> php artisan make:controller ProductController
+    App\Http\Controllers\ProductController.php create hobe. er vitore index method er vitore welcome return korbe. pore ei page design kora hobe.
+    web.php te ei file include korte hobe then Route dite hobe get request diye.
+    jodi pass match kore tahole session o set korte hobe.
+
+==> php artisan make:middleware UserAuth
+    App\Http\Middleware\UserAuth.php create hobe.
+    login kora obosthay orthat session e user thaka obosthay login page jate abr visit kora na jay tar jonne middleware use korte hobe.
+    App\Http\Kernel.php er vitore middleware ke register korate hobe.
+    tar age session ke Kernel.php te register korte hobe.
+    UserAuth.php er handle function e session set ache and login page visit korte chacche emon logic e homepage e redirect korar logic set korte hobe.
+    
+    
