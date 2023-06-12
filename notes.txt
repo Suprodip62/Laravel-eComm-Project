@@ -95,5 +95,94 @@ er vitore up function e name, email, password field add korbo.
     App\Http\Kernel.php er vitore middleware ke register korate hobe.
     tar age session ke Kernel.php te register korte hobe.
     UserAuth.php er handle function e session set ache and login page visit korte chacche emon logic e homepage e redirect korar logic set korte hobe.
+
+
+git add .
+git commit -m "login"
+git push
+
+
+6. Product table migration and Seeding
+==> php artisan make:migration create_products_table
+    App\Database\Migrations er vitore create_products_table create hobe. er vitore name, price, category, description, gallery field add korte hobe.
+==> php artisan migrate    
+    error dekhay --> create_users_table run hoye jay and ei table already exists emon error dekhay.
+    solution --> create_products_table ke onno folder e niye tarpor eta run korte hobe tahole create_products_table run hobe.
+==> php artisan make:seeder ProductSeeder
+    database\seeder er vitore ProductSeeder create hobe. er vitore run function e products table e product add korte hobe.
+==> php artisan db:seed --class=ProductSeeder    
+    product create hobe or product table e data add hobe.
+    multiple product eksathe add korte hole array te rekhe ei command dite hobe.
+
+
+7. Home page slider with Products
+==> php artisan make:model Product
+    App\Models\Product.php create hobe.
+    product controller e product model ke include korte hobe.
+    product controller er index function e return Product::all(); eta add korle welcome page e json format e sob product er details dekhabe.
+    resources/views er vitore product.blade.php create korte hobe and ProductController er index function theke return korte hobe er view.    
+
+    ProductController theke Product Model er sob data fetch kore ekta variable er maddhome product.blade.php te pass korte hobe.
+
+
+8. Home page complete with Trending Product List
+trending products code
+
+
+9. Product Details Page
+routes er web.php te details page er route set korte hobe ProductController class er detail function e.
+    ProductController e detail function implement korte hobe jekhane $id paramete neoya hobe.
+    Product::find($id); eta return korar mane hocche ei id er je product pabe ta return korbe.
+    eta json format e je product e click kora hobe ta show korbe.
+    details.blade.php create korte hobe.
     
-    
+    detail.blade.php te add to cart ekta hidden post request.
+    web.php te route er get request e detail er age / likhleo hobe abr na likhleo hobe.
+
+10. Product Search Page
+    web.php te search er route set kore ProductController e search function implement kore return $req->input(); return korle tv likhe search korle {"query":"tv"} return korbe. header.blade.php ke obossoi form e query nam dite hobe.
+    product e name like query dite hobe ja diye search korbe.
+
+    => eta diye bujhay array er index. ar -> diye bujhay obj er through te property or behavior
+
+
+11. Cart Table
+    ekhane user table ar product table er join thakbe.
+==> php artisan make:migration create_cart_table
+    database/migrations er vitore create_cart_table.php crete hobe and etar moddhe product_id ar user_id field add korte hobe.
+==> php artisan migrate
+    eta run korale users table already exist emon error show kore. so ager duita file onno folder e niye migration folder e shudhu create_cart_table.php thakbe emon somoy ei command run korate hobe.
+
+
+12. Add product in cart table (hidden post request)
+    add_to_cart e keu post request marle ProductController class er addToCart function e jete hobe eta Route set korte hobe.
+    keu login kora thakle take add_to_cart page e niye jabe ar login kora na thakle login page e niye jabe.
+
+    header.blade.php er ProductController::cartItem() comment thakar pore o etar jonne error dekhay.
+    karon comment ta html er comment but er code ta php er. so php er comment thakte hobe.
+
+    ekhon Cart table er vitore data insert korte hobe. ei jonne dorkar Cart Model
+==> php artisan make:model Cart
+    Model er nam Cart(singular) hole table name hobe Carts(plural).
+    But amader ekhane both cart(singular). tai Cart class er vitore public $table = "cart"; eta likhe dite hobe.
+
+    ProductController class e Cart class include korte hobe and hidden post request theke product_id ar session theke user_id niye Cart class er object e assign kore db te save korte hobe. finally homepage e redirect korbe.
+
+
+13. Add to cart Complete
+    ProductController e Session include kore cartItem name function crete korte hobe.
+    cartItem function ke static korte hobe cz header.blade.php theke call dite hole error ashbe static theke non-static call deoya jay na.
+    cartItem function e session theke user er id nite hobe tarpor Cart table e ei user_id diye kotogulo product ache tar count ber korte hobe and return korte hobe.
+    ei cartItem function ke call deoya hobe header.blade.php theke and ei function ja return kore ta store kora hobe total namer variable er vitore.
+    mane hocche session e thaka user er cart e koyta item ache eta total namer variable er vitore thakbe.
+    ekhon etake menubar e cart er pore show koralei hobe.
+    header.blade.php te cartItem function ke call deoyar age check kore nite hobe session e user ache ki na. ei check na korle error show korbe jokhon session user thakbe na tokhn.
+
+
+14. Logout
+    header.blade.php te dropdown menu te user session e thakle username ar logout dekhabe and session e na thakle login korar option dekhabe.
+    web.php te logout function e login page redirect er age Session::forger('user') dite hobe. ete session e user er info delete hobe.
+
+
+15.     
+

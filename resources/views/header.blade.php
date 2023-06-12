@@ -1,12 +1,12 @@
-<!-- <?php 
+<?php 
 use App\Http\Controllers\ProductController;
-$total=0;
+$total = 0;
 if(Session::has('user'))
 {
-  $total= ProductController::cartItem();
+    $total = ProductController::cartItem();
 }
 
-?> -->
+?>
 <nav class="navbar navbar-default">
     <div class="container-fluid">
       <!-- Brand and toggle get grouped for better mobile display -->
