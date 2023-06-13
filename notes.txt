@@ -182,7 +182,78 @@ routes er web.php te details page er route set korte hobe ProductController clas
 14. Logout
     header.blade.php te dropdown menu te user session e thakle username ar logout dekhabe and session e na thakle login korar option dekhabe.
     web.php te logout function e login page redirect er age Session::forger('user') dite hobe. ete session e user er info delete hobe.
+==> git add .
+==> git commit -m "logout"
+==> git push
 
 
-15.     
+15. Cart Product Listing
+    cart e je productgulu ache ta sob ekta page e show korbo
+    users, products and cart tin ta table use korbo. JOIN use korbo.
 
+    web.php te cartItem er route set korte hobe. tarpore ProductController e cortItem function create korte hobe. 
+    jehetu JOIN korbo 3 table er tai DB include korte hobe.
+    Cart table e product er details nai. but product_id ache jar maddhome amra Product table theke sob product er details ber korte parbo.
+    tai JOIN korte hobe.
+
+    Array format            Object format
+    $item['id']             $item->id
+    $item['gallery']        $item->gallery
+    $item['name']           $item->name
+    $item['description']    $item->description
+
+16. Remove from Cart
+    Remove to cart button e get request add korte hobe.
+    Route e removeCart add korte hobe.
+    Cart::destroy($id); eta run hole Cart table theke $id er data delete hoye jabe.
+
+
+17. Order detail page
+    ordernow er Route set korte hobe. tarpor ProductController er function theke JOIN koriye Product table er sob product er price er sum ber korte hobe and ordernow page e return korte hobe.
+
+
+18. Order table migration
+    for each order, order ta kon user korlo, ki ki product order korlo, kon datetime e korlo egulu sob record rakhar jonne order table.
+==> php artisan make:migration create_orders_table
+    create_orders_table.php create hobe
+    etar moddhe up function e sob field diye dite hobe.
+==> php artisan migrate
+    field soho up function er name Schema te je nam deoya ache sei name db te table create hobe.
+
+
+19. Order feature complete    
+    order now button e click korle orderplace e post request jabe and orderplace er route set kore ProductController e function banate hobe.
+==> php artisan make:model Order
+    order now button e click korle order er sob details save korar jonne order name ekta table thakbe jar jonne Order name ekta model create korte hobe.
+    Order.php te public $timestamps = false; updated_at, created_at egula table e chai na.
+    orderPlace function e Session theke user id nite hobe. tarpor Cart theke oi user id er sob info nite hobe.
+    $order = new Order; --> order class er ekta object create kore ei object e Order table er sob property te value set korte hobe. finally 
+    $order->save(); --> diye object er sob data table e insert korte hobe and Cart theke ei user id er sob info delete korte hobe.
+
+
+20. My Order List
+    myorders er route set korte hobe, ProductController e myorders function e Session theke user id niye tar orders table ar products table er join theke sob order deoya product er details ber korte hobe.
+    then DB class er object orders ke myorders.blade.php te pass korte hobe and myorders.blade.php te ei value gulo sob show korte hobe.
+
+21. User Registration
+    header.blade.php te login option er pashe Register option add korte hobe. Route set korte hobe. view route set korte hobe. register.blade.php create korte hobe.
+    UserController e User class er object create korte hobe then ei object e user er request e asha sob info(username, email, password) assign korte hobe. finally ei object ke save korte hobe.
+
+    Username: Sam Curran
+    Email: samcurran@gmail.com
+    pass: 12345
+
+
+--> Project Done
+
+    Username: Suprodip
+    Email: suprodipsorkar@gmail.com
+    pass: 12345
+
+    Username: Peter Parker
+    Email: peterparker@gmail.com
+    pass: 12345
+
+==> git add .
+==> git commit -m "Order and Registration done"
+==> git push
